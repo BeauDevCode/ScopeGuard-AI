@@ -1,0 +1,25 @@
+{
+  "projectName": "Example Program Alpha",
+  "programName": "Example Program Alpha",
+  "platform": "Example bounty platform",
+  "submissionPortal": "Example submission portal",
+  "startUrl": "https://demo-saas.example",
+  "allowedDomains": [
+    "demo-saas.example"
+  ],
+  "disallowedPaths": [
+    "billing",
+    "payment",
+    "delete-account"
+  ],
+  "authorizationNote": "Sanitized demo profile for public portfolio use.",
+  "researchAccountMarker": "DEMO",
+  "userAgentMarker": "ScopeGuard-AI DEMO",
+  "rateLimit": {
+    "minDelayMs": 1500,
+    "maxActionsPerRun": 25,
+    "maxPagesPerRun": 10
+  },
+  "testingMode": "safe-ui-mapping",
+  "confirmedAuthorization": false
+}

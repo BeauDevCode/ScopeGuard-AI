@@ -1,0 +1,17 @@
+{
+  "projectName": "Local Lab Example",
+  "programName": "Intentionally Vulnerable Local Lab",
+  "startUrl": "http://localhost:3000/",
+  "allowedDomains": ["localhost"],
+  "disallowedPaths": [],
+  "authorizationNote": "Local lab owned by the researcher.",
+  "userAgentMarker": "ScopeGuard-AI-Lab",
+  "rateLimit": {
+    "minDelayMs": 500,
+    "maxActionsPerRun": 100,
+    "maxPagesPerRun": 50
+  },
+  "testingMode": "lab-mode",
+  "labMode": true,
+  "confirmedAuthorization": true
+}

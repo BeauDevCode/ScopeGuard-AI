@@ -1,0 +1,100 @@
+{
+  "projectName": "Example Program Beta",
+  "programName": "Example Program Beta",
+  "platform": "Example bounty platform",
+  "submissionPortal": "Example submission portal",
+  "startUrl": "https://demo-shop.example",
+  "inScopeTargets": [
+    "https://demo-shop.example",
+    "https://demo-saas.example"
+  ],
+  "allowedDomains": [
+    "demo-shop.example",
+    "demo-saas.example"
+  ],
+  "strictScopeHosts": true,
+  "disallowedPaths": [
+    "checkout",
+    "payment",
+    "purchase",
+    "refund",
+    "coupon",
+    "gift-card"
+  ],
+  "requiredHeaders": {
+    "X-Demo-Research": "Portfolio"
+  },
+  "optionalHeaders": {
+    "X-Researcher-Handle": "[demo-handle]"
+  },
+  "authEmailRule": "Use owned demo accounts only.",
+  "safeModes": [
+    "Passive",
+    "Safe authenticated mapping",
+    "Owned-account comparison",
+    "Lab mode only"
+  ],
+  "defaultMode": "Safe authenticated mapping",
+  "testingMode": "authenticated-manual-session-mapping",
+  "triageMode": "Lowest realistic payout candidate",
+  "blockedFindings": [
+    "missing headers",
+    "cookie flags",
+    "clickjacking",
+    "open redirect",
+    "self-XSS",
+    "DoS",
+    "user enumeration",
+    "rate limiting"
+  ],
+  "blockedActions": [
+    "DoS",
+    "checkout",
+    "payment",
+    "purchase",
+    "destructive testing",
+    "high-volume traffic",
+    "brute force",
+    "fuzzing",
+    "credential attacks"
+  ],
+  "outOfScopeExamples": [
+    "missing headers",
+    "cookie flags",
+    "open redirect",
+    "self-XSS",
+    "clickjacking",
+    "rate limiting without direct impact"
+  ],
+  "outOfScopeVulnerabilityClasses": [
+    "missing headers",
+    "cookie flags",
+    "clickjacking",
+    "open redirect",
+    "self-XSS",
+    "DoS",
+    "user enumeration",
+    "rate limiting"
+  ],
+  "priorityFindings": [
+    "IDOR / broken access control",
+    "project ownership bypass",
+    "support ticket ownership bypass",
+    "sensitive data exposure in normal authenticated responses",
+    "tampering with owned account/project objects",
+    "business logic bugs with direct security impact"
+  ],
+  "authorizationNote": "Sanitized demo profile. Use only owned lab data and authorized targets.",
+  "userAgentMarker": "ScopeGuard-AI DEMO",
+  "rateLimit": {
+    "minDelayMs": 1500,
+    "maxActionsPerRun": 25,
+    "maxPagesPerRun": 10
+  },
+  "confirmedAuthorization": false,
+  "notes": [
+    "This is a fake public portfolio profile.",
+    "Only listed demo target roots are in scope by default.",
+    "Report drafts require confirmed evidence."
+  ]
+}

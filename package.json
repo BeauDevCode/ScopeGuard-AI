@@ -1,0 +1,35 @@
+{
+  "name": "scopeguard-ai",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Authorized Bug Bounty Recon & Safe Web Vulnerability Mapper",
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run web --",
+    "web": "npm --workspace @scopeguard/web run dev --",
+    "build": "npm --workspace @scopeguard/web run build",
+    "safe:mapper": "tsx scripts/safe_paste_link_mapper.ts",
+    "public:safety": "powershell -ExecutionPolicy Bypass -File scripts/check-public-safety.ps1",
+    "report": "npm --workspace @scopeguard/reporting run report --",
+    "test": "vitest run",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "typecheck": "tsc -b packages/core packages/rules packages/reporting apps/web"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "@types/node": "^24.10.1",
+    "concurrently": "^9.2.1",
+    "eslint": "^9.39.1",
+    "playwright": "^1.60.0",
+    "prettier": "^3.6.2",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.46.4",
+    "vitest": "^4.0.14"
+  }
+}
