@@ -122,7 +122,21 @@ export type CandidateType =
   | "Header/cookie hygiene note"
   | "Not reportable / informational";
 
-export type CandidateStatus = "mapping only" | "needs proof" | "potential issue";
+export type CandidateStatus =
+  | "mapping only"
+  | "needs owned-account proof"
+  | "candidate finding"
+  | "out of scope"
+  | "report ready";
+
+export const CANDIDATE_STATUS_EXPLANATIONS: Record<CandidateStatus, string> = {
+  "mapping only": "Safe metadata was observed, but there is no vulnerability evidence yet.",
+  "needs owned-account proof":
+    "Ownership-style IDs or sensitive objects were mapped; reportability requires a safe comparison using owned authorized accounts.",
+  "candidate finding": "Evidence suggests a possible issue, but impact and reproducibility are not fully confirmed.",
+  "out of scope": "The mapped class is excluded, hygiene-only, dangerous, or blocked by program rules.",
+  "report ready": "Scope, authorization, reproducibility, impact, and redacted evidence are all confirmed.",
+};
 
 export interface CandidateFinding {
   id: string;

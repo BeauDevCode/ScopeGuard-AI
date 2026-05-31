@@ -16,7 +16,12 @@ ScopeGuard AI is designed to be a portfolio-ready authorized mapper and workflow
   - Needs owned-account proof
   - Out of scope
   - Candidate finding
-  - Report ready after confirmed evidence
+  - Report ready
+- Sanitized dashboard/demo datasets:
+  - `examples/sanitized/demo-request-map.json`
+  - `examples/sanitized/demo-candidates.json`
+  - `examples/sanitized/demo-report-workflow.json`
+  - `examples/sanitized/demo-program-profiles.json`
 
 ## Must Stay Private
 
@@ -51,7 +56,9 @@ git status --short
 git diff --cached
 ```
 
-Review every warning. Some terms are acceptable when they appear in safety disclaimers or redaction logic, but real aliases, production captures, local user paths, and target-specific notes must move to `private/`.
+The public safety script prints informational hits for safety/redaction vocabulary and fails on possible leak markers such as private aliases, local paths, live capture markers, UUID-like public examples, or tracked private-looking paths.
+
+Real aliases, production captures, local user paths, and target-specific notes must move to `private/`.
 
 ## Keeping Real Work Outside GitHub
 

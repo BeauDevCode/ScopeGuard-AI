@@ -1,0 +1,53 @@
+{
+  "projectId": "owned-lab-demo",
+  "asset": "https://owned-lab.local",
+  "findingId": "owned-lab-demo:report-001",
+  "status": "report ready",
+  "readinessChecklist": [
+    {
+      "label": "In scope?",
+      "passed": true,
+      "detail": "The asset is one of the sanitized demo hosts."
+    },
+    {
+      "label": "Authorized?",
+      "passed": true,
+      "detail": "Owned lab authorization is explicitly confirmed in the demo workflow."
+    },
+    {
+      "label": "Reproducible?",
+      "passed": true,
+      "detail": "The fake comparison result is repeatable in the sanitized demo evidence."
+    },
+    {
+      "label": "Impact clear?",
+      "passed": true,
+      "detail": "The mock impact describes unauthorized access to owned demo file metadata only."
+    },
+    {
+      "label": "Evidence redacted?",
+      "passed": true,
+      "detail": "Only redacted metadata and fake IDs are present."
+    },
+    {
+      "label": "Screenshots/video ready?",
+      "passed": true,
+      "detail": "Portfolio screenshot placeholders are ready."
+    },
+    {
+      "label": "Out-of-scope exclusions checked?",
+      "passed": true,
+      "detail": "The workflow does not involve payment, destructive, brute force, fuzzing, DoS, or credential testing."
+    }
+  ],
+  "mockReport": {
+    "title": "[owned-lab.local] Mock IDOR candidate report from confirmed demo evidence",
+    "summary": "Sanitized demo report output generated only after the readiness checklist passes.",
+    "evidence": [
+      "Redacted request metadata with file_id=demo_file_111",
+      "Fake owned-account comparison note",
+      "Screenshot placeholder only"
+    ],
+    "safetyStatement": "This public example contains no live target data, secrets, screenshots, customer data, or real bounty details."
+  }
+}

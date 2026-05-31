@@ -10,7 +10,7 @@ Given the sanitized request metadata and program rules, decide whether this is r
 
 ## Draft A Report From Confirmed Evidence
 
-Use the confirmed sanitized evidence to draft a report with title, summary, asset, vulnerability type, severity estimate, steps to reproduce, expected result, actual result, impact, evidence, remediation, and safety statement.
+Use confirmed sanitized demo evidence only. Check that the item is in scope, authorized, reproducible, impact-clear, redacted, screenshot/video-ready, and not out of scope before drafting title, summary, asset, vulnerability type, severity estimate, steps to reproduce, expected result, actual result, impact, evidence, remediation, and safety statement.
 
 ## Improve The Capture Rules
 

@@ -1,0 +1,102 @@
+[
+  {
+    "timestamp": "2026-05-30T00:00:00.000Z",
+    "projectId": "example-program-beta",
+    "targetHost": "demo-shop.example",
+    "featureGuess": "account/profile",
+    "method": "GET",
+    "path": "/api/projects",
+    "queryParameters": {
+      "project_id": "demo_project_123"
+    },
+    "bodyParameters": {},
+    "statusCode": 200,
+    "resourceType": "xhr",
+    "responseBehavior": "owned demo project metadata returned",
+    "visibleIds": [
+      {
+        "key": "project_id",
+        "value": "demo_project_123",
+        "kind": "possible ownership ID",
+        "source": "query"
+      }
+    ],
+    "securityNotes": [],
+    "secretsRedacted": "yes"
+  },
+  {
+    "timestamp": "2026-05-30T00:01:00.000Z",
+    "projectId": "example-program-beta",
+    "targetHost": "demo-saas.example",
+    "featureGuess": "account/profile",
+    "method": "GET",
+    "path": "/api/users/me",
+    "queryParameters": {
+      "user_id": "demo_user_456"
+    },
+    "bodyParameters": {},
+    "statusCode": 200,
+    "resourceType": "xhr",
+    "responseBehavior": "owned demo account summary returned",
+    "visibleIds": [
+      {
+        "key": "user_id",
+        "value": "demo_user_456",
+        "kind": "possible ownership ID",
+        "source": "query"
+      }
+    ],
+    "securityNotes": [],
+    "secretsRedacted": "yes"
+  },
+  {
+    "timestamp": "2026-05-30T00:02:00.000Z",
+    "projectId": "example-program-beta",
+    "targetHost": "demo-shop.example",
+    "featureGuess": "support/contact",
+    "method": "GET",
+    "path": "/api/support/tickets",
+    "queryParameters": {
+      "ticket_id": "demo_ticket_789"
+    },
+    "bodyParameters": {},
+    "statusCode": 200,
+    "resourceType": "xhr",
+    "responseBehavior": "owned demo support ticket metadata returned",
+    "visibleIds": [
+      {
+        "key": "ticket_id",
+        "value": "demo_ticket_789",
+        "kind": "possible sensitive object ID",
+        "source": "query"
+      }
+    ],
+    "securityNotes": [],
+    "secretsRedacted": "yes"
+  },
+  {
+    "timestamp": "2026-05-30T00:03:00.000Z",
+    "projectId": "owned-lab-demo",
+    "targetHost": "owned-lab.local",
+    "featureGuess": "documents",
+    "method": "GET",
+    "path": "/api/files",
+    "queryParameters": {
+      "file_id": "demo_file_111"
+    },
+    "bodyParameters": {},
+    "statusCode": 403,
+    "resourceType": "xhr",
+    "responseBehavior": "owned demo comparison returned access denied",
+    "visibleIds": [
+      {
+        "key": "file_id",
+        "value": "demo_file_111",
+        "kind": "possible ownership ID",
+        "source": "query"
+      }
+    ],
+    "securityNotes": [],
+    "secretsRedacted": "yes"
+  }
+]

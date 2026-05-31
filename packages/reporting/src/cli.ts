@@ -1,5 +1,4 @@
 import fs from "node:fs";
-import { reportToMarkdown } from "./index.js";
 
 const projectArg = process.argv.includes("--project")
   ? process.argv[process.argv.indexOf("--project") + 1]
@@ -21,5 +20,5 @@ Use the web app to mark evidence as confirmed before generating a final report.
 
 fs.mkdirSync("reports", { recursive: true });
 fs.writeFileSync("reports/report-placeholder.md", out);
-console.log(reportToMarkdown);
+console.log("Report drafts require confirmed sanitized demo evidence.");
 console.log("Wrote reports/report-placeholder.md");

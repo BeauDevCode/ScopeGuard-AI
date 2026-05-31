@@ -1,0 +1,71 @@
+[
+  {
+    "id": "example-program-beta:map-001",
+    "projectId": "example-program-beta",
+    "type": "Not reportable / informational",
+    "status": "mapping only",
+    "title": "Product catalog request mapped",
+    "feature": "product/content",
+    "evidenceRequestIds": ["2026-05-30T00:00:00.000Z"],
+    "reason": "The request contains no ownership or sensitive object evidence.",
+    "proofPlan": [],
+    "severityHint": "info"
+  },
+  {
+    "id": "example-program-beta:idor-001",
+    "projectId": "example-program-beta",
+    "type": "IDOR candidate",
+    "status": "needs owned-account proof",
+    "title": "Project request contains ownership-style ID",
+    "feature": "account/profile",
+    "evidenceRequestIds": ["2026-05-30T00:00:00.000Z"],
+    "reason": "project_id=demo_project_123 was observed in a normal owned demo account flow.",
+    "proofPlan": [
+      "Use two owned demo accounts only.",
+      "Capture the equivalent request from each account.",
+      "Perform one safe comparison request.",
+      "Expected secure result is 403, 404, access denied, or no cross-account data."
+    ],
+    "severityHint": "medium"
+  },
+  {
+    "id": "example-program-beta:support-001",
+    "projectId": "example-program-beta",
+    "type": "Broken access control candidate",
+    "status": "candidate finding",
+    "title": "Support ticket object needs impact review",
+    "feature": "support/contact",
+    "evidenceRequestIds": ["2026-05-30T00:02:00.000Z"],
+    "reason": "ticket_id=demo_ticket_789 is account-shaped, but the demo does not claim impact until reproducibility is confirmed.",
+    "proofPlan": [
+      "Confirm both accounts are owned by the researcher.",
+      "Compare only the same support-ticket feature.",
+      "Keep evidence redacted."
+    ],
+    "severityHint": "low"
+  },
+  {
+    "id": "example-program-beta:hygiene-001",
+    "projectId": "example-program-beta",
+    "type": "Header/cookie hygiene note",
+    "status": "out of scope",
+    "title": "Missing header is non-reportable by default",
+    "feature": "unknown",
+    "evidenceRequestIds": ["2026-05-30T00:04:00.000Z"],
+    "reason": "Header and cookie hygiene notes are excluded unless direct security impact exists.",
+    "proofPlan": [],
+    "severityHint": "info"
+  },
+  {
+    "id": "owned-lab-demo:report-001",
+    "projectId": "owned-lab-demo",
+    "type": "IDOR candidate",
+    "status": "report ready",
+    "title": "Owned lab file comparison has confirmed safe demo evidence",
+    "feature": "documents",
+    "evidenceRequestIds": ["2026-05-30T00:03:00.000Z"],
+    "reason": "The fake owned-lab evidence has scope, authorization, impact, redaction, and exclusion checks completed.",
+    "proofPlan": [],
+    "severityHint": "medium"
+  }
+]

@@ -12,6 +12,9 @@ Contributions must preserve the authorization-first safety model. Do not add exp
 npm install
 npm run test
 npm run lint
+npm run typecheck
+npm run build
+npm run public:safety
 ```
 
 ## Pull Requests
@@ -20,3 +23,5 @@ npm run lint
 - Add tests for rule, redaction, scope, or report behavior.
 - Update docs when safety behavior changes.
 - Do not commit captures, browser profiles, cookies, tokens, or secrets.
+- Keep examples sanitized with fake demo domains and fake IDs only.
+- Report any suspected public/private split issue before opening a PR.

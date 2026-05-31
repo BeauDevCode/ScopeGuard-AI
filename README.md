@@ -1,14 +1,23 @@
 # ScopeGuard AI
 
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178c6)
+![Tests](https://img.shields.io/badge/tests-Vitest-22c55e)
+![React](https://img.shields.io/badge/React-19-61dafb)
+![Playwright](https://img.shields.io/badge/Playwright-safe%20manual%20mapping-2e7d32)
 ![Safety](https://img.shields.io/badge/safety-authorized%20testing%20only-1f8f4d)
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 **Authorized Bug Bounty Recon & Safe Web Vulnerability Mapper**
 
-ScopeGuard AI is a professional TypeScript portfolio project for authorized security researchers. It models scope, captures redacted request metadata, identifies candidate findings, organizes evidence, and drafts reports only after confirmed reproducible proof exists.
+ScopeGuard AI is a professional TypeScript, React, and Playwright-oriented portfolio project for authorized security researchers. It models program scope, captures redacted request metadata, identifies candidate findings, organizes evidence, and drafts mock reports only after confirmed reproducible demo proof exists.
+
+It is built to show security judgment as much as code: strict scope checks, fake public examples, no secret storage, no exploit payloads, and report readiness gates that keep “candidate” separate from “confirmed.”
 
 > This app is an authorized safe mapper, not an exploit scanner.
+
+## Showcase Blurb
+
+ScopeGuard AI is an authorized bug bounty recon and safe web vulnerability mapping tool built with TypeScript, React, and Playwright. It helps researchers model scope, capture redacted request metadata, triage ownership-style IDs, and prepare responsible report workflows without storing secrets or adding exploit-scanner behavior.
 
 ## Legal And Safety Warning
 
@@ -25,9 +34,9 @@ ScopeGuard AI saves only safe metadata. It must never save cookies, authorizatio
 - Supports paste-link target validation for configured example programs.
 - Redacts sensitive request metadata before analysis.
 - Detects ownership-style identifiers such as `project_id=demo_project_123`.
-- Labels findings as mapping-only, needs-proof, candidate-only, out-of-scope, or report-ready after confirmed evidence.
+- Labels findings as mapping only, needs owned-account proof, candidate finding, out of scope, or report ready after confirmed evidence.
 - Keeps excluded classes non-reportable by default unless direct impact exists.
-- Generates report drafts only when evidence is confirmed.
+- Generates sanitized mock report drafts only when demo evidence is confirmed and checklist-ready.
 
 ## What It Does Not Do
 
@@ -62,7 +71,15 @@ Public-safe demo statuses include:
 - Needs owned-account proof
 - Out of scope
 - Candidate finding
-- Report ready after confirmed evidence
+- Report ready
+
+The richer public demo data lives under `examples/sanitized/`:
+
+- `demo-request-map.json` - fake redacted request metadata.
+- `demo-candidates.json` - fake triage statuses for mapping, proof, candidate, out-of-scope, and report-ready states.
+- `demo-report-workflow.json` - fake readiness checklist and mock report metadata.
+- `demo-program-profiles.json` - fake program profiles using only demo hosts.
+- `demo-report-output.example.md` - a public-safe mock report output.
 
 ## Safety Model
 
@@ -98,12 +115,23 @@ npm run dev
 
 Then open the Vite URL shown in the terminal, usually `http://localhost:5173`.
 
+## Demo Workflow
+
+1. Open the dashboard and review the Safe by Design guardrails.
+2. Choose a sanitized example profile such as Demo Shop or Owned Lab.
+3. Paste a fake target URL such as `https://demo-shop.example`.
+4. Confirm the authorization checkbox.
+5. Review allowed domains, blocked actions, required marker/header, and safe mode.
+6. Start the public demo mapping state. The UI does not launch real target automation by default.
+7. Review request-map, candidate-triage, and report-readiness examples.
+
 ## Verification
 
 ```bash
 npm run test
 npm run lint
 npm run typecheck
+npm run build
 npm run public:safety
 ```
 
@@ -119,6 +147,7 @@ npm run public:safety
 npm run test
 npm run lint
 npm run typecheck
+npm run build
 ```
 
 ## Creating A Project
@@ -149,21 +178,34 @@ ScopeGuard AI ships with sanitized public profiles that demonstrate how authoriz
 - `examples/local-lab.example.json` - local intentionally vulnerable lab example.
 - `examples/sanitized/` - fake capture, analysis, report-ready, mapping-only, and out-of-scope outputs.
 
+## Why I Built This
+
+Bug bounty tooling often drifts toward scanner behavior or private notes that cannot be shown publicly. ScopeGuard AI is a portfolio-safe way to demonstrate responsible reconnaissance workflows: scope validation, least-data capture, careful triage, and disciplined report readiness.
+
+## What I Learned
+
+- How to encode program-scope and authorization rules as testable TypeScript primitives.
+- How to separate useful security metadata from secrets and private research artifacts.
+- How to design triage language that avoids overstating unconfirmed findings.
+- How to package a security project so it is understandable to recruiters without exposing real bounty work.
+
 ## Portfolio Value
 
 ScopeGuard AI demonstrates:
 
 - TypeScript monorepo architecture.
 - Playwright-oriented safe browser automation design.
+- React dashboard and product UX design.
 - Bug bounty scope modeling.
 - Request metadata redaction.
 - Vulnerability candidate triage.
 - Report drafting workflow.
 - Public/private research-data separation.
+- Security-focused developer experience with tests, linting, typecheck, build, CI, and public-safety checks.
 
 ## Screenshots
 
-Screenshots can be added under `docs/screenshots/` before public launch:
+Screenshot capture guidance lives in `docs/screenshots/README.md`. Recommended public-safe screenshots:
 
 - `docs/screenshots/new-project.png` - New project and authorization form.
 - `docs/screenshots/paste-target.png` - Paste-link target validation.

@@ -1,5 +1,6 @@
 import type {
   CandidateFinding,
+  CandidateStatus,
   CapturedRequest,
   DetectedIdentifier,
   FeatureClass,
@@ -7,6 +8,7 @@ import type {
   ProjectConfig,
   SecurityNote,
 } from "@scopeguard/core";
+import { CANDIDATE_STATUS_EXPLANATIONS } from "@scopeguard/core";
 
 export const REDACTED = "[redacted]";
 
@@ -330,6 +332,10 @@ export function isPasteLinkBlockedFinding(text: string): boolean {
   return triage.status === "blocked/out-of-scope" || triage.status === "non-reportable hygiene";
 }
 
+export function candidateStatusExplanation(status: CandidateStatus): string {
+  return CANDIDATE_STATUS_EXPLANATIONS[status];
+}
+
 export function triagePasteLinkText(text: string): PasteLinkTriageResult {
   if (PASTE_LINK_DO_NOT_SUBMIT_RE.test(text)) {
     return {
@@ -602,7 +608,7 @@ export function analyzeHeaders(headers: Record<string, string | string[] | undef
 export function classifyCandidates(request: CapturedRequest): CandidateFinding[] {
   const candidates: CandidateFinding[] = [];
   const ownershipIds = request.visibleIds.filter((id) =>
-    ["possible ownership ID", "possible sensitive object ID", "session/cart line item ID"].includes(id.kind),
+    ["possible ownership ID", "possible sensitive object ID"].includes(id.kind),
   );
 
   if (ownershipIds.length > 0) {
@@ -610,13 +616,29 @@ export function classifyCandidates(request: CapturedRequest): CandidateFinding[]
       id: `${request.projectId}:${request.timestamp}:idor`,
       projectId: request.projectId,
       type: request.featureGuess === "admin-looking" ? "Broken access control candidate" : "IDOR candidate",
-      status: "needs proof",
+      status: "needs owned-account proof",
       title: `${request.featureGuess} request contains object identifiers`,
       feature: request.featureGuess,
       evidenceRequestIds: [request.timestamp],
       reason: "Object identifiers were observed in a request. This is candidate-only until tested safely with owned accounts.",
       proofPlan: proofPlanFor("idor"),
       severityHint: "medium",
+    });
+  }
+
+  if (request.visibleIds.some((id) => id.kind === "session/cart line item ID")) {
+    candidates.push({
+      id: `${request.projectId}:${request.timestamp}:cart-line-item`,
+      projectId: request.projectId,
+      type: "Business logic candidate",
+      status: "candidate finding",
+      title: "Session-scoped cart identifier observed",
+      feature: request.featureGuess,
+      evidenceRequestIds: [request.timestamp],
+      reason:
+        "A cart or basket line-item ID was observed. It is not report-ready unless owned-account impact is confirmed.",
+      proofPlan: proofPlanFor("idor"),
+      severityHint: "low",
     });
   }
 
@@ -632,6 +654,24 @@ export function classifyCandidates(request: CapturedRequest): CandidateFinding[]
       reason: "A redirect-like parameter appeared naturally. Real impact is required before reporting.",
       proofPlan: proofPlanFor("redirect"),
       severityHint: "low",
+    });
+  }
+
+  const hygieneNotes = request.securityNotes?.filter((note) =>
+    ["security-header", "cookie-attribute"].includes(note.type),
+  );
+  if (hygieneNotes?.length) {
+    candidates.push({
+      id: `${request.projectId}:${request.timestamp}:hygiene`,
+      projectId: request.projectId,
+      type: "Header/cookie hygiene note",
+      status: "out of scope",
+      title: "Header or cookie hygiene note observed",
+      feature: request.featureGuess,
+      evidenceRequestIds: [request.timestamp],
+      reason: "Missing headers or cookie flags are hygiene-only by default and are not report-ready without direct impact.",
+      proofPlan: [],
+      severityHint: "info",
     });
   }
 

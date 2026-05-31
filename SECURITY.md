@@ -14,6 +14,10 @@ Please open a private security advisory or contact the maintainers directly. Do 
 
 ScopeGuard AI is designed not to store cookies, authorization headers, JWTs, session tokens, passwords, payment data, or full request headers. If you discover a path where sensitive data is persisted, treat it as a security bug.
 
+Public examples must remain sanitized and use fake demo domains only. Real bounty notes, captures, screenshots, report drafts, aliases, browser profiles, and logs belong outside git under ignored private paths.
+
+Report drafting in the public project is limited to sanitized mock evidence and checklist-ready demo workflows. Do not add report auto-submission, exploit modules, fuzzing, brute force, or destructive testing.
+
 ## Supported Versions
 
 This repository is pre-1.0. Security fixes are applied to the main branch.

@@ -9,6 +9,16 @@ Asset:
 Priority estimate:
 [Low / Medium / High with honest reasoning]
 
+Readiness checklist:
+
+- In scope?
+- Authorized?
+- Reproducible?
+- Impact clear?
+- Evidence redacted?
+- Screenshots/video ready?
+- Out-of-scope exclusions checked?
+
 Summary:
 [Two to four sentences describing confirmed behavior.]
 
