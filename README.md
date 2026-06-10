@@ -7,11 +7,11 @@
 ![Safety](https://img.shields.io/badge/safety-authorized%20testing%20only-1f8f4d)
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
-**Authorized Bug Bounty Recon & Safe Web Vulnerability Mapper**
+**Authorized bug bounty workflow mapper**
 
-ScopeGuard AI is a professional TypeScript, React, and Playwright-oriented portfolio project for authorized security researchers. It models program scope, captures redacted request metadata, identifies candidate findings, organizes evidence, and drafts mock reports only after confirmed reproducible demo proof exists.
+ScopeGuard AI is a TypeScript, React, and Playwright-oriented portfolio project for authorized security researchers. It models program scope, captures redacted request metadata, identifies candidate findings, organizes evidence, and drafts mock reports only after confirmed reproducible demo proof exists.
 
-It is built to show security judgment as much as code: strict scope checks, fake public examples, no secret storage, no exploit payloads, and report readiness gates that keep “candidate” separate from “confirmed.”
+It is built to show security judgment as much as code: strict scope checks, fake public examples, no secret storage, no exploit payloads, and report readiness gates that keep "candidate" separate from "confirmed."
 
 > This app is an authorized safe mapper, not an exploit scanner.
 
@@ -53,7 +53,7 @@ ScopeGuard AI saves only safe metadata. It must never save cookies, authorizatio
 - No high-volume crawling.
 - No report submission automation.
 
-## Public Demo vs Private Research Data
+## Sample Data
 
 The GitHub repo intentionally includes only sanitized demo data. Real captures, target notes, screenshots, draft reports, aliases, and private research notes belong in `private/`, which is gitignored.
 
@@ -91,6 +91,31 @@ ScopeGuard AI is built around explicit authorization, least-data capture, and ca
 - Candidate findings are not report drafts until a researcher confirms reproducible impact using only authorized accounts and safe evidence.
 - Out-of-scope classes such as DoS, cookie replay, user enumeration, tenant enumeration, dependency confusion, and subdomain takeover are blocked or triaged as non-reportable by default.
 
+## Architecture
+
+```text
+apps/web/              Vite + React dashboard and workflow UI
+packages/core/         project config types, normalization, validation, candidate states
+packages/rules/        scope checks, paste-link validation, redaction, request classification
+packages/reporting/    report-readiness checklist and mock report generation
+examples/              sanitized public demo profiles and outputs
+scripts/               public safety scan and safe mapper CLI
+docs/                  safety notes, screenshot guide, report template, Codex prompts
+```
+
+The root package uses npm workspaces. The web app imports the local packages directly, so validation rules and report-readiness logic are testable outside the UI.
+
+## Workflow Model
+
+ScopeGuard treats the workflow as a gated state machine:
+
+1. **Project draft** - user enters program name, start URL, allowed domains, blocked paths, marker/header requirements, and authorization notes.
+2. **Validated project** - `validateProjectConfig` blocks missing authorization, invalid URLs, empty allowed-domain lists, missing markers, and unsafe rate-limit defaults.
+3. **Safe target intake** - `validatePasteTargetUrl` checks pasted URLs against allowed roots and requires documented authenticated-flow evidence for strict subdomain cases.
+4. **Request metadata review** - request maps store redacted metadata, visible IDs, feature guesses, and safety notes; secrets and private data are not retained.
+5. **Candidate triage** - findings remain `mapping only`, `needs owned-account proof`, `candidate finding`, or `out of scope` until evidence is confirmed.
+6. **Report ready** - report drafts require scope, authorization, reproducibility, impact, redacted evidence, screenshots/media, and out-of-scope checks.
+
 ## Install
 
 ```bash
@@ -98,6 +123,8 @@ git clone https://github.com/BeauDevCode/ScopeGuard-AI.git
 cd ScopeGuard-AI
 npm install
 ```
+
+CI uses Node.js 22. On Windows systems where PowerShell blocks `npm.ps1`, run the same commands with `npm.cmd`.
 
 ## Quick Start
 
@@ -125,15 +152,27 @@ Then open the Vite URL shown in the terminal, usually `http://localhost:5173`.
 6. Start the public demo mapping state. The UI does not launch real target automation by default.
 7. Review request-map, candidate-triage, and report-readiness examples.
 
-## Verification
+## Testing and Validation
 
 ```bash
+npm ci
 npm run test
 npm run lint
 npm run typecheck
 npm run build
 npm run public:safety
+npm audit --audit-level=critical
 ```
+
+Run the local UI:
+
+```bash
+npm run dev -- --host 127.0.0.1 --port 5173
+```
+
+Then open [http://127.0.0.1:5173](http://127.0.0.1:5173).
+
+Fresh-clone validation for this pass used `npm.cmd` on Windows: install from lockfile, tests, lint, typecheck, build, public safety scan, critical audit check, and a Vite dev-server smoke test all passed.
 
 ## Available Scripts
 
@@ -203,15 +242,27 @@ ScopeGuard AI demonstrates:
 - Public/private research-data separation.
 - Security-focused developer experience with tests, linting, typecheck, build, CI, and public-safety checks.
 
+## Limitations
+
+- This is a workflow and safety-modeling app, not an automated scanner.
+- The UI uses sanitized demo profiles and fake targets only.
+- There is no persistent database or multi-user account system yet.
+- The current public workflow does not launch real browser automation by default.
+- Report drafts are mock outputs and must not be used as real bounty submissions without authorized, reproducible evidence.
+
 ## Screenshots
 
-Screenshot capture guidance lives in `docs/screenshots/README.md`. Recommended public-safe screenshots:
+No real screenshots are committed yet. Screenshot capture guidance lives in `docs/screenshots/README.md`.
 
-- `docs/screenshots/new-project.png` - New project and authorization form.
-- `docs/screenshots/paste-target.png` - Paste-link target validation.
-- `docs/screenshots/request-map.png` - Request metadata map.
-- `docs/screenshots/candidates.png` - Candidate triage panel.
-- `docs/screenshots/report-draft.png` - Report draft workflow.
+| Workflow state | Placeholder path | Shows |
+| --- | --- | --- |
+| Dashboard overview | `docs/screenshots/dashboard-overview.png` | Hero, stats, Safe by Design panel, workflow overview |
+| In-scope paste target | `docs/screenshots/paste-target-in-scope.png` | Demo Shop profile with `https://demo-shop.example` allowed and authorization checked |
+| Out-of-scope paste target | `docs/screenshots/paste-target-out-of-scope.png` | Fake host such as `https://outside.example` blocked |
+| Candidate statuses | `docs/screenshots/candidate-statuses.png` | Mapping, proof-needed, candidate, out-of-scope, and report-ready badges |
+| Request map | `docs/screenshots/request-map-preview.png` | Sanitized metadata table with fake IDs |
+| Report readiness | `docs/screenshots/report-readiness.png` | Checklist with pending media item |
+| Mobile dashboard | `docs/screenshots/mobile-dashboard.png` | Responsive layout at a mobile width |
 
 ## Workflow
 
@@ -231,13 +282,11 @@ Export sanitized `captures/<project>/capture.md` or `captures/<project>/capture.
 
 ## Roadmap
 
-- Safe Playwright capture package for manual browser sessions.
-- Express API service for project persistence.
-- Browser extension handoff for richer manual capture.
-- Evidence bundle export.
-- Per-program rule templates.
-- Optional CVSS calculator UI.
-- More safe lab-mode integrations.
+- Add real public-safe screenshots and a short workflow GIF.
+- Add a safe Playwright capture package for manual browser sessions.
+- Add project persistence through a small API service.
+- Add evidence bundle export with redaction checks.
+- Add per-program rule templates and a simple CVSS helper.
 
 ## License
 
